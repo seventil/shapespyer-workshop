@@ -2284,7 +2284,7 @@ wheels = [
 [[package]]
 name = "shapespyer"
 version = "0.3.0"
-source = { git = "https://gitlab.com/simnavi/shapespyer.git?rev=v0.3.0#7f7dd744b35ef0d58801174795c18dd48cad2745" }
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "docopt" },
     { name = "ipywidgets" },
@@ -2303,6 +2303,9 @@ dependencies = [
     { name = "tqdm" },
     { name = "typeguard" },
 ]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8a/e0/d047e02f5f925c574369270076a041f0f4969e8f358eb94ed0957cc74b04/shapespyer-0.3.0-py3-none-any.whl", hash = "sha256:cb11aed46f37f9ca9aa7cf018c4d256c51b92486efa98d2b8d52885e6456969c", size = 585052, upload-time = "2026-10-14T15:16:47.761Z" },
+]
 
 [[package]]
 name = "shapespyer-workshop"
@@ -2313,7 +2316,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "shapespyer", git = "https://gitlab.com/simnavi/shapespyer.git?rev=v0.3.0" }]
+requires-dist = [{ name = "shapespyer", specifier = "==0.3.0" }]
 
 [[package]]
 name = "six"

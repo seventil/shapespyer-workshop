@@ -5,7 +5,7 @@ description = "Local test environment for the Shapespyer workshop notebooks"
 requires-python = ">=3.12"
 dependencies = [
     # same pin as the setup cell of every notebook, so local runs match Colab
-    "shapespyer @ git+https://gitlab.com/simnavi/shapespyer.git@v0.3.0",
+    "shapespyer==0.3.0",
 ]
 
 [tool.uv]
