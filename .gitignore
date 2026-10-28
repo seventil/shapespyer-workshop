@@ -5,9 +5,3 @@
 # executed copies from the test run
 .runs/
 .ipynb_checkpoints/
-# left behind when a notebook stops before its cleanup cell
-CTA.gro
-structure_exports/
-model_exports/
-micelle-eq1.*
-*.zip
