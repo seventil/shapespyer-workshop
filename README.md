@@ -4,7 +4,7 @@ Four notebooks, in `notebooks/`, for a one-hour hands-on session with the `shape
 
 | Notebook | GROMACS | Time | Content |
 |---|---|---|---|
-| `01_components.ipynb` | no | 5 min | library, `.show()`, a component from your own file, from SMILES |
+| `01_components.ipynb` | no | 10 min | library, `.show()`, a component from your own file, from SMILES; save both to the library (one new, one replacing a library asset) |
 | `02_structures.ipynb` | no | 10 min | ball, rod, ring, vesicle, lattice: assemble, export, view, download |
 | `03_sample_model.ipynb` | yes | 10 min | asymmetric DOPC/POPC vesicle in TIP3 + NaCl, assembly with `gmx insert-molecules` / `gmx solvate`, export |
 | `04_equilibration.ipynb` | yes | 15 min | SDS micelle project, stage 0 (minimisation), stage 1 in the background: status, log, live files, cancel; optional full stage 1 with trajectory view and micelle Rg (mdtraj); save, load, download for VMD |
