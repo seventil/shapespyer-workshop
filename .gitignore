@@ -1,0 +1,14 @@
+# uv environment, rebuilt by `uv sync`
+.venv/
+# local Shapespyer data: library downloads, Temp, Projects (see README)
+.data/
+# executed copies from the test run
+.runs/
+.ipynb_checkpoints/
+# left behind when a notebook stops before its cleanup cell
+CTA.gro
+structure_exports/
+model_exports/
+DemoProj/
+micelle-eq1.*
+*.zip
