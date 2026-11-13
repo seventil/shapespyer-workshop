@@ -5,15 +5,21 @@ Four notebooks, in `notebooks/`, for a one-hour hands-on session with the `shape
 | Notebook | GROMACS | Time | Content |
 |---|---|---|---|
 | `01_components.ipynb` | no | 10 min | library, `.show()`, a component from your own file, from SMILES; save both to the library (one new, one replacing a library asset) |
-| `02_structures.ipynb` | no | 10 min | ball, rod, ring, vesicle, lattice: assemble, export, view, download |
+| `02_structures.ipynb` | no | 10 min | ring, rod, bilayer, ball, vesicle, lattice: assemble, export, view, download |
 | `03_sample_model.ipynb` | yes | 10 min | asymmetric DOPC/POPC vesicle in TIP3 + NaCl, assembly with `gmx insert-molecules` / `gmx solvate`, export |
 | `04_equilibration.ipynb` | yes | 15 min | SDS micelle project, stage settings, stage 0 (minimisation); optional stage 1 (short MD, about 20 min on Colab) with trajectory view and micelle Rg (mdtraj); save and load the project; export the stages for VMD |
 
-In each notebook the setup cell comes first, then a helpers cell: small functions that show and download results, kept out of the workflow cells. On Colab both cells show only their titles; run them like any other cell.
+Each notebook starts with a few setup cells:
+
+1. the setup cell, which on Colab installs Shapespyer (and GROMACS for 03 and 04);
+2. the helpers cell: the `ColabHelpers` class, with small functions that show and download results. The workflow cells always call them as `ColabHelpers.<name>()`, so they can't be taken for part of Shapespyer;
+3. the config cell, which passes `shapespyer.yaml` to Shapespyer and sets the log level and the work folder.
+
+Then come the imports of the workflow, and the library cell, which gives the library its folder. Each import sits in the first cell that needs it, such as `shutil` in the clean up. On Colab the setup, helpers and config cells show only their titles; run them like any other cell.
 
 ## Where the files go
 
-The first cell of each notebook is the setup cell. It hands `shapespyer.yaml` config file to Shapespyer's file manager before anything else runs. Then the whole session uses that file, and your own Shapespyer data and config are neither used nor changed.
+The config cell of each notebook hands the `shapespyer.yaml` config file to Shapespyer's file manager before any other Shapespyer call. Then the whole session uses that file, and your own Shapespyer data and config are neither used nor changed. The library cell gives the library its folder explicitly, `LocalAssets/` in `app_path`, which is also the default.
 
 - **Locally** `notebooks/shapespyer.yaml` says `app_path: ../.data`, which is `.data/` in the repo root. The library goes to `.data/LocalAssets/`, the working files to `.data/Temp/` and the projects to `.data/Projects/`. Exports, downloads and zips of the notebooks go to `.data/work/`, which the clean up cell of each notebook deletes. Keep `shapespyer.yaml` next to the notebooks: if the setup cell can't find it in the notebook's folder, it stops with a message.
 - **On Colab** the setup cell writes its own `shapespyer.yaml`, with everything in `/content/shapespyer`, so it shows in the Files panel. In `04`, tick `SAVE_PROJECTS_TO_DRIVE` to save the projects to `MyDrive/shapespyer/Projects` instead. Colab then asks once for Google sign-in. The library and Temp stay on the local disk, because GROMACS runs much slower on Drive.
@@ -46,7 +52,7 @@ In VS Code, open the folder (from WSL: **WSL: Open Folder in WSL**) and pick the
 |---|---|
 | `No shapespyer.yaml in ...; run the notebook in its own folder, next to shapespyer.yaml` | The notebook runs in another folder than its own. In VS Code, check the setting `jupyter.notebookFileRoot`; its default `${fileDirname}` is right. |
 | `This notebook needs GROMACS: gmx not found ...` | On Colab, run the setup cell again (apt failed). On Windows, use WSL or Colab, or set `gmx_executable`. |
-| `Shapespyer already runs with other folders: Runtime > Restart session ...` | You changed `SAVE_PROJECTS_TO_DRIVE` after Shapespyer started. Restart the session, then run the setup cell. |
+| `Shapespyer already runs with other folders: Runtime > Restart session ...` | You changed `SAVE_PROJECTS_TO_DRIVE` after Shapespyer started. Restart the session, then run the notebook again from the top. |
 | A molecule view stays empty | Run the setup cell again (widget manager), then the view cell. If that fails: **Runtime → Restart session**, then run all. |
 | `Stage 0 hasn't finished, so stage 1 can't start` | Run stage 0 first. |
 | `... was assembled again since stage 0 ran; run from stage 0` | The model changed. Set `first_stage = 0`. |
