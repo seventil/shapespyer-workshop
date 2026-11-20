@@ -1,6 +1,28 @@
 # Shapespyer workshop notebooks
 
-Four notebooks, in `notebooks/`, for a one-hour hands-on session with the `shapes.project` API. They are made for Google Colab. The same files run locally, in the uv environment of this folder.
+The notebooks of the Shapespyer workshop. In `notebooks/`, each author has a folder and arranges it freely; copies of the folders also go to the examples of the Shapespyer repository. This repo collects them with one environment, so you can install them on their own and keep using them after the workshop.
+
+| Path | Content |
+|---|---|
+| `notebooks/00_SHAPESPYER_INTRO.ipynb` | an introduction to Shapespyer, to read first |
+| `notebooks/AB_GMX_LIPIDS_WORKFLOW/` | `GMX_LIPID_VESICLE.ipynb`: from SMILES to a multicomponent lipid vesicle, with GROMACS. With its inputs (`inp/`), topologies (`toppar/`), scripts and reference results (`usr-ref.tar.xz`) |
+| `notebooks/AK_PROJECTS/` | four notebooks on the `shapes.project` API, made for Google Colab: see [below](#ak_projects-the-shapesproject-api) |
+
+## Install and run locally
+
+```bash
+cd shapespyer-workshop
+uv sync           # Python 3.12, from .python-version, the same as Colab; Shapespyer 0.3.1
+uv run jupyter lab
+```
+
+In VS Code, open the folder (from WSL: **WSL: Open Folder in WSL**) and pick the `.venv` kernel. For the molecule views, allow VS Code to load widget scripts from a CDN when it asks (setting `jupyter.widgetScriptSources`).
+
+The notebooks with GROMACS need it installed: on WSL / Linux, `sudo apt install gromacs`. `GMX_LIPID_VESICLE.ipynb` says what else it needs.
+
+## AK_PROJECTS: the `shapes.project` API
+
+Four notebooks for a one-hour hands-on session with the `shapes.project` API. They are made for Google Colab. The same files run locally, in the uv environment of this repo.
 
 | Notebook | GROMACS | Time | Content |
 |---|---|---|---|
@@ -17,36 +39,28 @@ Each notebook starts with a few setup cells:
 
 Then come the imports of the workflow, and the library cell, which gives the library its folder. Each import sits in the first cell that needs it, such as `shutil` in the clean up. On Colab the setup, helpers and config cells show only their titles; run them like any other cell.
 
-## Where the files go
+### Where the files go
 
 The config cell of each notebook hands the `shapespyer.yaml` config file to Shapespyer's file manager before any other Shapespyer call. Then the whole session uses that file, and your own Shapespyer data and config are neither used nor changed. The library cell gives the library its folder explicitly, `LocalAssets/` in `app_path`, which is also the default.
 
-- **Locally** `notebooks/shapespyer.yaml` says `app_path: ../.data`, which is `.data/` in the repo root. The library goes to `.data/LocalAssets/`, the working files to `.data/Temp/` and the projects to `.data/Projects/`. Exports, downloads and zips of the notebooks go to `.data/work/`, which the clean up cell of each notebook deletes. Keep `shapespyer.yaml` next to the notebooks: if the setup cell can't find it in the notebook's folder, it stops with a message.
+- **Locally** `notebooks/AK_PROJECTS/shapespyer.yaml` says `app_path: ../../.data`, which is `.data/` in the repo root. The library goes to `.data/LocalAssets/`, the working files to `.data/Temp/` and the projects to `.data/Projects/`. Exports, downloads and zips of the notebooks go to `.data/work/`, which the clean up cell of each notebook deletes. Keep `shapespyer.yaml` next to the notebooks: if the setup cell can't find it in the notebook's folder, it stops with a message.
 - **On Colab** the setup cell writes its own `shapespyer.yaml`, with everything in `/content/shapespyer`, so it shows in the Files panel. In `04`, tick `SAVE_PROJECTS_TO_DRIVE` to save the projects to `MyDrive/shapespyer/Projects` instead. Colab then asks once for Google sign-in. The library and Temp stay on the local disk, because GROMACS runs much slower on Drive.
-- For a GROMACS that isn't on `PATH`, set `gmx_executable` in `notebooks/shapespyer.yaml`.
+- For a GROMACS that isn't on `PATH`, set `gmx_executable` in `notebooks/AK_PROJECTS/shapespyer.yaml`.
 
-## Run locally
+### Which notebooks run where
 
 | | 01, 02 | 03, 04 |
 |---|---|---|
 | Windows | yes | only with a Windows GROMACS set as `gmx_executable`; otherwise the setup cell stops and says so |
 | WSL / Linux | yes | yes, after `sudo apt install gromacs` (Colab installs GROMACS from apt too) |
 
-```bash
-cd shapespyer-workshop
-uv sync           # Python 3.12, from .python-version, the same as Colab
-uv run jupyter lab
-```
-
-In VS Code, open the folder (from WSL: **WSL: Open Folder in WSL**) and pick the `.venv` kernel. For the molecule views, allow VS Code to load widget scripts from a CDN when it asks (setting `jupyter.widgetScriptSources`).
-
-## On Colab
+### On Colab
 
 1. Open <https://colab.research.google.com>, then **File → Upload notebook**. Or put the notebooks in Google Drive and share the folder.
 2. Each notebook runs in its own runtime, so each one needs its setup cell. They run in parallel, about 1 min without GROMACS and about 3 min with it.
 3. Files in `/content` are lost when the runtime disconnects. Download the zips before that, or tick `SAVE_PROJECTS_TO_DRIVE` in `04`.
 
-## Troubleshooting
+### Troubleshooting
 
 | Message or symptom | Fix |
 |---|---|
@@ -58,5 +72,6 @@ In VS Code, open the folder (from WSL: **WSL: Open Folder in WSL**) and pick the
 | `... was assembled again since stage 0 ran; run from stage 0` | The model changed. Set `first_stage = 0`. |
 | `... is in use by this session ... Pass force=True to delete it anyway` | Assets of this session still use the files. Use `force=True`. |
 | `Only N of M ... fit into the box` | Too much salt for the box. Lower the concentration. |
+| `Layer 1 of ... needs an rmin of at least ...` (or `The inner leaflet of lamella 1 ...`) | A layer's or leaflet's `rmin` must be at least 1.6 times its `dmin`. Raise the `rmin` or lower the `dmin`. |
 | `Asset with the name ... could not be downloaded`, with `429 Too Many Requests` in the warning above | GitLab limits downloads of the library files. Wait a minute, then run the cell again. |
 | Windows: `FileNotFoundError` for a file in `.data\Temp\...\assembly.tmp\` (the lattice makes the deepest paths) | The path is longer than 260 characters. Move the folder closer to the drive root, or turn on long paths in an admin PowerShell: `New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name LongPathsEnabled -Value 1 -PropertyType DWORD -Force` |

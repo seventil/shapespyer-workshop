@@ -1682,6 +1682,18 @@ wheels = [
 ]
 
 [[package]]
+name = "periodictable"
+version = "2.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "pyparsing" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/44/0d/f494a2ec62ab56ffd44da4f236db374421fe0cd1e39d9ebc9785751eb432/periodictable-2.1.0-py3-none-any.whl", hash = "sha256:e9155d2bf5ac10050abeff2f99096d4f04312c0c8a6bb432e28744367c5064b3", size = 830749, upload-time = "2026-02-28T00:08:27.135Z" },
+]
+
+[[package]]
 name = "pexpect"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2283,7 +2295,7 @@ wheels = [
 
 [[package]]
 name = "shapespyer"
-version = "0.3.0"
+version = "0.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "docopt" },
@@ -2300,11 +2312,12 @@ dependencies = [
     { name = "psutil" },
     { name = "pyyaml" },
     { name = "scipy" },
+    { name = "sinccity" },
     { name = "tqdm" },
     { name = "typeguard" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8a/e0/d047e02f5f925c574369270076a041f0f4969e8f358eb94ed0957cc74b04/shapespyer-0.3.0-py3-none-any.whl", hash = "sha256:cb11aed46f37f9ca9aa7cf018c4d256c51b92486efa98d2b8d52885e6456969c", size = 585052, upload-time = "2026-10-14T15:16:47.761Z" },
+    { url = "https://files.pythonhosted.org/packages/8a/3f/814459429e8dac519f2b6edd3aea5fd33bcc49991722fb2368ac127ac551/shapespyer-0.3.1-py3-none-any.whl", hash = "sha256:08e9f1e2eacc6a7d6c46b9e20f907484e7ceb660b775fc4d04d3032e57b17f5c", size = 1291810, upload-time = "2026-11-19T16:31:32.584Z" },
 ]
 
 [[package]]
@@ -2316,7 +2329,20 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "shapespyer", specifier = "==0.3.0" }]
+requires-dist = [{ name = "shapespyer", specifier = "==0.3.1" }]
+
+[[package]]
+name = "sinccity"
+version = "0.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "periodictable" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b4/08/cb14a5fbd313bff6bdeee1e470d5ea3dea70cd863c311baee3e45c85521a/sinccity-0.2.0.tar.gz", hash = "sha256:0f907d289375b93c7cf9227d833cebc3990be658b0771e5816aa19d8025083bc", size = 64125, upload-time = "2026-10-31T11:49:06.917Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/da/91/a280454143ffdec07e0e6cead7dcea0571d2267104b6d09a46fe255bf757/sinccity-0.2.0-py3-none-any.whl", hash = "sha256:aac46e046e8e488375abe5d8e80809ae65fcffe387848b6801e799cfbbc7b22c", size = 52286, upload-time = "2026-10-31T11:49:05.704Z" },
+]
 
 [[package]]
 name = "six"
